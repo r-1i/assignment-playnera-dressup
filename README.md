@@ -3,7 +3,7 @@
 [![Platform](https://img.shields.io/badge/Platform-Android-009688?style=flat&logo=android&logoColor=white)](https://github.com/твой-username/твой-репо)
 [![Made in](https://img.shields.io/badge/Made_in-6_hours-orange?style=flat)](https://github.com/твой-username/твой-репо)
 
-# Playnera Dress Up – Макияж
+# Playnera, Junior Unity Mobile Developer, Dress Up
 
 Интерактивный **dress-up / make-up** для мобильных устройств:  
 нанесение крема, теней, помады, румян, сброс губкой, листание книги с палитрами.  
