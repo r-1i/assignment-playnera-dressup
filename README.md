@@ -1,65 +1,86 @@
-# Playnera Dress Up — макияж (Unity)
+[![Unity 6.3 LTS](https://img.shields.io/badge/Unity-6.3_LTS-000000?style=flat&logo=unity&logoColor=white)](https://unity.com/releases/unity-6)
+[![URP 17+](https://img.shields.io/badge/URP-17+-7B2CBF?style=flat&logo=unity&logoColor=white)](https://docs.unity3d.com/Packages/com.unity.render-pipelines.universal@17.0)
+[![Platform](https://img.shields.io/badge/Platform-Android-009688?style=flat&logo=android&logoColor=white)](https://github.com/твой-username/твой-репо)
+[![Made in](https://img.shields.io/badge/Made_in-6_hours-orange?style=flat)](https://github.com/твой-username/твой-репо)
 
-Коротко: интерактивный **dress-up / make-up** на мобильном вводе — крем, тени, помада, румяна, сброс губкой, листание «книги» с палитрами. Логика на **UniTask** и **DOTween**, тачи через **Input System** (Enhanced Touch).
+# Playnera Dress Up – Макияж
+
+Интерактивный **dress-up / make-up** для мобильных устройств:  
+нанесение крема, теней, помады, румян, сброс губкой, листание книги с палитрами.  
+Плавный тач-ввод, приятные анимации и звуки.  
+
+Сделано **за 6 часов** чистого времени.
 
 ## Геймплей
 
-<!-- Сюда вставить гиф: выбор инструмента и первое нанесение (например, крем или кисть). -->
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/d70c7027-1a12-488f-ab79-2ebe054ba798" 
+       width="48%" alt="Нанесение макияжа + сброс" />
+  <img src="https://github.com/user-attachments/assets/ccff63e2-b2eb-450a-9e74-ad28ae9b7cd3" 
+       width="48%" alt="Листание Toolbook" />
+</p>
 
-<!-- Сюда вставить гиф: смена цвета / палитры и нанесение другого оттенка. -->
+<p align="center">
+  <b> Слева</b> — нанесение (крем, тени, помада, румяна) + сброс губкой<br>
+  <b> Справа</b> — листание книги палитр + мгновенная смена оттенка/инструмента
+</p>
 
-<!-- Сюда вставить гиф: смена инструмента подряд (помада → тени и т.п.) без артефактов. -->
+**Ключевые технические моменты:**
+- Плавные анимации и твины — **DOTween**
+- Асинхронная логика без фризов — **UniTask**
+- Точный тач-ввод (drag/tap) — **Input System (Enhanced Touch)**
+- Чистые переходы между инструментами без артефактов
 
-<!-- Сюда вставить гиф: губка / сброс макияжа и повторный выбор инструмента. -->
+## Что сделано за 6 часов
 
-<!-- Сюда вставить гиф (опционально): листание панели Toolbook стрелками. -->
+- Полный тач-контрол: нанесение макияжа (крем, тени, помада, румяна), смешивание, сброс губкой
+- Анимированная книга палитр с листанием стрелками и мгновенной сменой цвета
+- Инструменты через интерфейсы `ITool` и `IColorableTool` — удобно добавлять новые
+- Звуки при действиях + анимации появления/переходов UI
+- Всё оптимизировано под мобильные устройства (Android) на Unity 6 с URP
 
 ## Стек
 
-- Unity (URP)
-- **DOTween**
-- **UniTask**
-- **Unity Input System** (Enhanced Touch)
+- **Unity 6.3 LTS** (URP 17+)
+- **DOTween** — анимации
+- **UniTask** — асинхронность
+- **Unity Input System** (Enhanced Touch) — мобильный ввод
 
 ## Запуск
 
-1. Открыть папку проекта в Unity Hub.
-2. Открыть стартовую сцену (например, `Assets/Scenes/SampleScene.unity`).
-3. Собрать под **Android / iOS** при необходимости (Player Settings → целевая платформа).
+1. Откройте проект в **Unity Hub** (рекомендуется Unity 6.3+)
+2. Загрузите стартовую сцену: `Assets/Scenes/SampleScene.unity`
+3. При необходимости соберите под **Android** или **iOS**  
+   (Player Settings → Switching Platform)
 
-## Структура кода (скрипты)
+## Структура кода
 
-Основная логика лежит в `Assets/Core/Scripts/`:
+Основная логика: `Assets/Core/Scripts/`
 
-| Папка   | Назначение |
-|---------|------------|
-| `Makeup/` | контроллер сцены, лицо, зоны, ввод |
-| `Tools/`  | инструменты, интерфейсы `ITool` / `IColorableTool` |
-| `UI/`     | кнопки цвета, книга палитр, анимация появления UI |
-| `Audio/`  | SFX и события |
-| `Utils/`  | расширения (например, твины → UniTask) |
+| Папка       | Назначение                                      |
+|-------------|-------------------------------------------------|
+| `Makeup/`   | Контроллер сцены, зоны лица, обработка ввода    |
+| `Tools/`    | Инструменты + интерфейсы `ITool` / `IColorableTool` |
+| `UI/`       | Кнопки цветов, книга палитр, анимации UI       |
+| `Audio/`    | Звуки и события                                 |
+| `Utils/`    | Расширения, хелперы (UniTask + DOTween)        |
 
-## UML — диаграмма классов (упрощённо)
-
-Связи показаны на уровне «кто от кого зависит / кого реализует». Детали полей и методов смотри в исходниках.
+## UML-диаграмма классов (упрощённая)
 
 ```mermaid
 classDiagram
     direction TB
-
     class ITool {
         <<interface>>
         +Activate()
         +Deactivate()
         OnReady
     }
-
     class IColorableTool {
         <<interface>>
         +SetSprite()
         +SetPalette()
     }
-
     class MakeupController {
         +SelectTool(ITool)
         +ClearTool()
@@ -67,38 +88,33 @@ classDiagram
         +FaceVisuals
         +DragController
     }
-
     class DragController {
         +FaceZone
-        +EnableDrag() / DisableDrag()
+        +EnableDrag()
+        +DisableDrag()
         OnDragStart / OnDrag / OnRelease / OnTap
     }
-
     class FaceZone {
-        +Contains*()
+        +Contains()
     }
-
     class FaceVisuals {
-        +Apply*() / ResetAll()
+        +Apply()
+        +ResetAll()
     }
-
     class BaseToolBehaviour {
         <<abstract>>
         #PickUp()
         #WaitForPlayerDrag()
         #ReturnTool()
     }
-
     class CreamTool
     class LipstickTool
     class EyeshadowTool
     class BlushTool
     class SpongeTool
-
     class ColorButton
     class ToolbookController
     class AppearanceAnimation
-
     class AudioManager
     class AudioEvents {
         <<static>>
@@ -109,31 +125,22 @@ classDiagram
     IColorableTool <|.. LipstickTool
     IColorableTool <|.. EyeshadowTool
     IColorableTool <|.. BlushTool
-
     BaseToolBehaviour <|-- CreamTool
     BaseToolBehaviour <|-- LipstickTool
     BaseToolBehaviour <|-- EyeshadowTool
     BaseToolBehaviour <|-- BlushTool
 
-    MakeupController o-- ITool : current
+    MakeupController o-- ITool : currentTool
     MakeupController --> DragController
     MakeupController --> FaceVisuals
     DragController --> FaceZone
-
     BaseToolBehaviour --> MakeupController
     ColorButton --> MakeupController
     ColorButton ..> ITool
     ColorButton ..> IColorableTool
-
     AudioManager ..> AudioEvents
 ```
 
-> Если Mermaid на GitHub не отрисовывается, открой `README` в браузере на github.com — диаграмма рендерится там.
-
-## Лицензии сторонних библиотек
-
-Перед публикацией проверь условия **DOTween**, **UniTask** и используемых ассетов (спрайты, звуки).
-
+> Если Mermaid на GitHub не отрисовывается, откройте `README` в браузере на github.com - диаграмма рендерится там.
 ---
-
-*Тестовое задание / портфолио.*
+*Тестовое задание, Playnera.*
